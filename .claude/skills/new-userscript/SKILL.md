@@ -11,7 +11,7 @@ The user wants to add a new userscript to this project. They will provide a name
 1. **Ask for required details** (if not already in $ARGUMENTS):
    - Script name and purpose (one sentence)
    - Target URL pattern (e.g., `https://example.com/*`)
-   - Whether it needs `GM_download`, `GM_xmlhttpRequest`, or other GM_ APIs
+   - Whether it needs `GM_download`, `GM_xmlhttpRequest`, or other GM\_ APIs
 
 2. **Create `src/<kebab-name>.js`** with this structure:
 
@@ -34,10 +34,10 @@ The user wants to add a new userscript to this project. They will provide a name
 })()
 ```
 
-   - Only include `@grant` lines for GM_ APIs actually used
-   - Use `@match` patterns matching the target site
-   - Version format is `YYYY-MM-DD`
-   - Wrap everything in an IIFE with `'use strict'`
+- Only include `@grant` lines for GM\_ APIs actually used
+- Use `@match` patterns matching the target site
+- Version format is `YYYY-MM-DD`
+- Wrap everything in an IIFE with `'use strict'`
 
 3. **Follow existing style**: single quotes, no semicolons, 2-space indent (per Prettier config)
 

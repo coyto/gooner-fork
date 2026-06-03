@@ -1,0 +1,22 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "globals": {
+    "GM_download": "readonly",
+    "GM_xmlhttpRequest": "readonly",
+    "GM_setValue": "readonly",
+    "GM_getValue": "readonly",
+    "GM_log": "readonly",
+    "GM_openInTab": "readonly"
+  },
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "rules": {},
+  "overrides": [
+    {
+      "files": ["build.js", "server.js"],
+      "env": { "node": true }
+    }
+  ]
+}

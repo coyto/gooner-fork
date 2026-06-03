@@ -2,6 +2,8 @@
 // @name         Coomer Video Viewer
 // @namespace    https://github.com/xdegeneratex
 // @version      2025-06-30
+// @updateURL    https://github.com/coyto/gooner-fork/raw/main/dist/coomer-video-viewer/build.user.js
+// @downloadURL  https://github.com/coyto/gooner-fork/raw/main/dist/coomer-video-viewer/build.user.js
 // @description  View Coomer video in the browser.
 // @author       https://github.com/xdegeneratex
 // @match        https://coomer.st/*/user/*/post/*
@@ -74,7 +76,7 @@
   }
 
   // Keep the observer running permanently to handle SPA navigation
-  const observer = new MutationObserver(() => {
+  const observer = new MutationObserver((mutations) => {
     // Check if we're on a post page by looking at the URL
     if (!/\/post\//.test(window.location.pathname)) {
       return

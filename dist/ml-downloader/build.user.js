@@ -1,14 +1,20 @@
 // ==UserScript==
-// @name         GoonerFork
+// @name         MotherlessDownloadButton
 // @namespace    http://github.com/coyto/
+// @version      2026-05-25
 // @description  Adds a button to download videos directly
 // @author       coyto
-// @version      1.01
+// @version      1.00
 // @updateURL    https://github.com/coyto/gooner-fork/raw/main/dist/ml-downloader/build.user.js
 // @downloadURL  https://github.com/coyto/gooner-fork/raw/main/dist/ml-downloader/build.user.js
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=motherless.com
 // @license      WTFPL; http://www.wtfpl.net/txt/copying/
 // @match        https://motherless.com/*
+// @require      https://unpkg.com/tippy.js@6
+// @require      https://unpkg.com/@popperjs/core@2
+// @require      https://unpkg.com/file-saver@2
+// @require      https://unpkg.com/jszip@3
+// @require      https://raw.githubusercontent.com/geraintluff/sha256/gh-pages/sha256.min.js
 // @connect      self
 // @connect      motherless.com
 // @connect      cdn5-videos.motherlessmedia.com
@@ -20,12 +26,9 @@
 // @grant        GM_log
 // @grant        GM_openInTab
 // ==/UserScript==
+
 ;(function () {
   'use strict'
-
-  document.addEventListener('DOMContentLoaded', async () => {
-    // debugger;
-  })
 
   function injectButton() {
     const container = document.querySelector('#ad-ntva-1')
@@ -75,6 +78,7 @@
       }
 
       if (!rawUrl) {
+        console.error('[TM] No video URL found')
         return
       }
 
@@ -99,15 +103,7 @@
     container.appendChild(btn)
   }
 
-  document.querySelectorAll('.awn-ignore').forEach((el) => {
-    if (el.textContent.includes('happy to be back and truly appreciate everyone who has been waiting!')) {
-      el.remove()
-    }
-  })
-
-  document.querySelectorAll('#contentGallery').forEach((gallery) => {
-    gallery.style.display = 'none'
-  })
+  document.querySelectorAll('.awn-ignore').forEach((el) => el.remove())
 
   const timer = setInterval(() => {
     const container = document.querySelector('.view-right.text-right > div')
