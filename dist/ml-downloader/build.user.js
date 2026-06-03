@@ -3,9 +3,9 @@
 // @namespace    http://github.com/coyto/
 // @description  Adds a button to download videos directly
 // @author       coyto
-// @version      1.00
-// @updateURL    https://github.com/coyto/gooner-fork/raw/main/dist/build.user.js
-// @downloadURL  https://github.com/coyto/gooner-fork/raw/main/dist/build.user.js
+// @version      1.01
+// @updateURL    https://github.com/coyto/gooner-fork/raw/main/dist/ml-downloader/build.user.js
+// @downloadURL  https://github.com/coyto/gooner-fork/raw/main/dist/ml-downloader/build.user.js
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=motherless.com
 // @license      WTFPL; http://www.wtfpl.net/txt/copying/
 // @match        https://motherless.com/*
@@ -20,69 +20,11 @@
 // @grant        GM_log
 // @grant        GM_openInTab
 // ==/UserScript==
-const tippy = window.tippy
-const styles = {
-  tippy: {
-    theme: `.tippy-box[data-theme~=transparent]{background-color:transparent}.tippy-box[data-theme~=transparent]>.tippy-arrow{width:14px;height:14px}.tippy-box[data-theme~=transparent][data-placement^=top]>.tippy-arrow:before{border-width:7px 7px 0;border-top-color:#3f3f3f}.tippy-box[data-theme~=transparent][data-placement^=bottom]>.tippy-arrow:before{border-width:1 7px 7px;border-bottom-color:#3f3f3f}.tippy-box[data-theme~=transparent][data-placement^=left]>.tippy-arrow:before{border-width:7px 0 7px 7px;border-left-color:#3f3f3f}.tippy-box[data-theme~=transparent][data-placement^=right]>.tippy-arrow:before{border-width:7px 7px 7px 0;border-right-color:#3f3f3f}.tippy-box[data-theme~=transparent]>.tippy-backdrop{background-color:transparent;}.tippy-box[data-theme~=transparent]>.tippy-svg-arrow{fill:gainsboro}`,
-  },
-}
-const ui = {
-  /**
-   * @returns {string}
-   */
-  getTooltipBackgroundColor: () => {
-    const scheme = document.documentElement.dataset.colorScheme
-    return scheme === 'dark' ? '#2B2B2B' : '#EDF0F3'
-  },
-
-  /**
-   * @param target
-   * @param content
-   * @param options
-   * @returns {*}
-   */
-  tooltip: (target, content, options = {}) => {
-    // noinspection JSUnusedGlobalSymbols
-    return tippy(target, {
-      arrow: true,
-      theme: 'transparent',
-      allowHTML: true,
-      content: content,
-      appendTo: () => document.body,
-      placement: 'left',
-      interactive: true,
-      ...options,
-    })
-  },
-}
-const init = {
-  injectCustomStyles: () => {
-    // Tippy transparent theme.
-    const styleEl = document.createElement('style')
-    styleEl.textContent = styles.tippy.theme
-    document.head.append(styleEl)
-
-    const customStyles = document.createElement('style')
-    // Margins classes
-    const marginClasses = []
-
-    for (let i = 1; i <= 15; i++) {
-      marginClasses.push(`.m-l-${i} {margin-left: ${i}px;}`)
-      marginClasses.push(`.m-t-${i} {margin-top: ${i}px;}`)
-    }
-
-    customStyles.textContent = marginClasses.join('\n')
-    document.head.append(customStyles)
-  },
-}
-
 ;(function () {
   'use strict'
 
   document.addEventListener('DOMContentLoaded', async () => {
     // debugger;
-    // init.injectCustomStyles();
-    // const color = ui.getTooltipBackgroundColor();
   })
 
   function injectButton() {
@@ -133,7 +75,6 @@ const init = {
       }
 
       if (!rawUrl) {
-        console.error('[TM] No video URL found')
         return
       }
 
@@ -162,6 +103,10 @@ const init = {
     if (el.textContent.includes('happy to be back and truly appreciate everyone who has been waiting!')) {
       el.remove()
     }
+  })
+
+  document.querySelectorAll('#contentGallery').forEach((gallery) => {
+    gallery.style.display = 'none'
   })
 
   const timer = setInterval(() => {
