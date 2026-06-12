@@ -4,8 +4,8 @@
 // @version      1.0.2
 // @description  Adds a button to download videos directly on MetaDoll
 // @author       coyto
-// @updateURL    https://github.com/coyto/gooner-fork/raw/main/dist/metadoll-downloader/build.user.js
-// @downloadURL  https://github.com/coyto/gooner-fork/raw/main/dist/metadoll-downloader/build.user.js
+// @updateURL    https://github.com/coyto/gooner-fork/raw/main/dist/md-downloader/build.user.js
+// @downloadURL  https://github.com/coyto/gooner-fork/raw/main/dist/md-downloader/build.user.js
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=metadoll.to
 // @license      WTFPL; http://www.wtfpl.net/txt/copying/
 // @match        https://metadoll.to/*
