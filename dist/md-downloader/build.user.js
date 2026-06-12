@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MetaDollDownloader
 // @namespace    http://github.com/coyto/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Adds a button to download videos directly on MetaDoll
 // @author       coyto
 // @updateURL    https://github.com/coyto/gooner-fork/raw/main/dist/metadoll-downloader/build.user.js
@@ -34,13 +34,14 @@
     const tagItem = lastTag.closest('.item');
     if (!tagItem) return;
 
-    const btn = document.createElement('button');
-    btn.type = 'button';
+    const btn = document.createElement('a');
+    btn.href = '#';
     btn.id = 'md-download-btn';
     btn.className = 'video-tags';
     btn.textContent = 'Download Video';
 
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       const links = [...document.querySelectorAll('#tab_video_download a.video-categories')];
 
       if (!links.length) {
