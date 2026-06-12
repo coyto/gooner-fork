@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MetaDollDownloader
 // @namespace    http://github.com/coyto/
-// @version      1.0.0
+// @version      1.0.1
 // @description  Adds a button to download videos directly on MetaDoll
 // @author       coyto
 // @updateURL    https://github.com/coyto/gooner-fork/raw/main/dist/metadoll-downloader/build.user.js
@@ -24,8 +24,15 @@
   'use strict';
 
   function injectButton() {
-    const container = document.querySelector('#tab_video_info');
-    if (!container || container.querySelector('#md-download-btn')) return;
+    if (document.querySelector('#md-download-btn')) return;
+
+    // Find the .item that contains video-tags links — that's where we insert
+    const lastTag =
+      document.querySelector('#tab_video_info a.video-tags:last-of-type') ||
+      document.querySelector('#tab_video_info a.video-tags');
+    if (!lastTag) return;
+    const tagItem = lastTag.closest('.item');
+    if (!tagItem) return;
 
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -74,7 +81,7 @@
         onload: () => console.log('[MD] download complete'),
       });
     });
-    container.appendChild(btn);
+    tagItem.appendChild(btn);
 
     const xpathResult = document.evaluate(
       "//div[contains(text(), 'strengthened our moderation')]",
@@ -91,8 +98,7 @@
   }
 
   const timer = setInterval(() => {
-    const container = document.querySelector('#ad-ntva-1');
-    if (container) {
+    if (document.querySelector('#tab_video_info a.video-tags')) {
       clearInterval(timer);
       injectButton();
     }
