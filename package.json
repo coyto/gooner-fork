@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coyto/MotherlessDownloadButton.git"
+    "url": "git+https://github.com/coyto/gooner-fork.git"
   },
   "author": "coyto",
   "license": "WTFPL",
   "bugs": {
-    "url": "https://github.com/coyto/MotherlessDownloadButton/issues"
+    "url": "https://github.com/coyto/gooner-fork/issues"
   },
-  "homepage": "https://github.com/coyto/MotherlessDownloadButton#readme",
+  "homepage": "https://github.com/coyto/gooner-fork#readme",
   "packageManager": "pnpm@11.5.0",
   "devDependencies": {
     "chokidar-cli": "^3.0.0",

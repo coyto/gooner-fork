@@ -9,89 +9,89 @@
 // @grant        none
 // ==/UserScript==
 
-;(function () {
-  'use strict'
+(function () {
+  'use strict';
 
-  console.log('[Coomer Video Viewer]: Script loaded')
+  console.log('[Coomer Video Viewer]: Script loaded');
 
   function addPlayButtons() {
-    const links = document.querySelectorAll('.post__attachment-link')
+    const links = document.querySelectorAll('.post__attachment-link');
 
     if (links.length === 0) {
-      return false
+      return false;
     }
 
-    let addedAny = false
+    let addedAny = false;
 
     links.forEach((link) => {
       // Skip if we already added a button for this link
       if (link.dataset.playButtonAdded) {
-        return
+        return;
       }
 
-      const linkText = link.textContent
+      const linkText = link.textContent;
 
       if (!linkText) {
-        return
+        return;
       }
 
-      const ext = linkText.split('.').pop()
+      const ext = linkText.split('.').pop();
 
       if (!/^(mp4|m4v|mov|mpeg|wmv|webm|mkv)$/i.test(ext)) {
-        return
+        return;
       }
 
-      const viewInBrowserLink = link.cloneNode(true)
-      viewInBrowserLink.target = '_blank'
-      viewInBrowserLink.href = link.href.replace(/\?.*/, '')
-      viewInBrowserLink.textContent = '▶ Play In Browser'
-      viewInBrowserLink.style.marginLeft = '10px'
-      link.insertAdjacentElement('afterend', viewInBrowserLink)
+      const viewInBrowserLink = link.cloneNode(true);
+      viewInBrowserLink.target = '_blank';
+      viewInBrowserLink.href = link.href.replace(/\?.*/, '');
+      viewInBrowserLink.textContent = '▶ Play In Browser';
+      viewInBrowserLink.style.marginLeft = '10px';
+      link.insertAdjacentElement('afterend', viewInBrowserLink);
 
       viewInBrowserLink.addEventListener('click', (e) => {
-        e.preventDefault()
-        const videoUrl = viewInBrowserLink.href
-        const videoWindow = window.open('', '_blank')
+        e.preventDefault();
+        const videoUrl = viewInBrowserLink.href;
+        const videoWindow = window.open('', '_blank');
         videoWindow.document.write(`
           <html><head><title>Video Player</title></head>
           <body style="margin:0; background-color: #000;">
             <video src="${videoUrl}" controls autoplay style="width:100vw; height:100vh;"></video>
           </body></html>
-        `)
-        videoWindow.document.close()
-      })
+        `);
+        videoWindow.document.close();
+      });
 
       // Mark this link as processed
-      link.dataset.playButtonAdded = 'true'
-      addedAny = true
-    })
+      link.dataset.playButtonAdded = 'true';
+      addedAny = true;
+    });
 
     if (addedAny) {
-      console.log('[Coomer Video Viewer]: Play buttons added successfully')
+      console.log('[Coomer Video Viewer]: Play buttons added successfully');
     }
 
-    return addedAny
+    return addedAny;
   }
 
   // Keep the observer running permanently to handle SPA navigation
   const observer = new MutationObserver(() => {
     // Check if we're on a post page by looking at the URL
     if (!/\/post\//.test(window.location.pathname)) {
-      return
+      return;
     }
 
     // Try to add buttons whenever DOM changes
-    addPlayButtons()
-  })
+    addPlayButtons();
+  });
 
   // Start observing
   observer.observe(document.body, {
     childList: true,
     subtree: true,
-  })
+  });
 
   // Also try immediately in case content is already loaded
-  addPlayButtons()
+  addPlayButtons();
 
-  console.log('[Coomer Video Viewer]: Observer started, watching for content...')
-})()
+  console.log('[Coomer Video Viewer]: Observer started, watching for content...');
+})();
