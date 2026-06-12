@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MetaDollDownloader
 // @namespace    http://github.com/coyto/
-// @version      1.0.2
+// @version      1.0.3
 // @description  Adds a button to download videos directly on MetaDoll
 // @author       coyto
 // @updateURL    https://github.com/coyto/gooner-fork/raw/main/dist/md-downloader/build.user.js
@@ -76,7 +76,7 @@
 
       GM_download({
         url: downloadUrl,
-        name: fileName,
+        name: `abc/${fileName}`,
         saveAs: false,
         onerror: (err) => console.error('[MD] download failed:', err),
         onload: () => console.log('[MD] download complete'),
@@ -84,18 +84,8 @@
     });
     tagItem.appendChild(btn);
 
-    const xpathResult = document.evaluate(
-      "//div[contains(text(), 'strengthened our moderation')]",
-      document,
-      null,
-      XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
-      null
-    );
-
-    for (let i = 0; i < xpathResult.snapshotLength; i++) {
-      const div = xpathResult.snapshotItem(i);
-      div.style.display = 'none';
-    }
+    const hideOriginalDownload = document.querySelector('.Download');
+    hideOriginalDownload?.remove();
   }
 
   const timer = setInterval(() => {
